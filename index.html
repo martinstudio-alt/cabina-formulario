@@ -120,32 +120,17 @@
 
         <form id="formulario">
 
-            <!-- Los campos serán cargados desde Google Sheets -->
-
+            <!-- CAMPOS DINÁMICOS -->
             <div id="camposFormulario"></div>
 
+            <!-- EXPERIENCIAS DINÁMICAS -->
             <div class="experiencias">
 
-                <label>Elige tu experiencia</label>
-
-                <label class="opcion">
-                    <input
-                        type="radio"
-                        name="experiencia"
-                        value="experiencia01"
-                        required
-                    >
-                    <span>Experiencia 01</span>
+                <label id="tituloExperiencias">
+                    Elige tu experiencia
                 </label>
 
-                <label class="opcion">
-                    <input
-                        type="radio"
-                        name="experiencia"
-                        value="experiencia02"
-                    >
-                    <span>Experiencia 02</span>
-                </label>
+                <div id="listaExperiencias"></div>
 
             </div>
 
@@ -162,7 +147,7 @@
 
         /*
          * ==========================================
-         * CONFIGURACIÓN RECIBIDA DESDE GOOGLE SHEETS
+         * CONFIGURACIÓN DESDE GOOGLE SHEETS
          * ==========================================
          */
 
@@ -339,16 +324,8 @@
                 document.getElementById("camposFormulario");
 
 
-            /*
-             * Limpiar campos existentes
-             */
-
             contenedorCampos.innerHTML = "";
 
-
-            /*
-             * Ordenar por ORDEN
-             */
 
             campos.sort(function(a, b) {
 
@@ -356,10 +333,6 @@
 
             });
 
-
-            /*
-             * Crear cada campo activo
-             */
 
             campos.forEach(function(campo) {
 
@@ -380,12 +353,11 @@
 
 
                 /*
-                 * Identificar tipo de campo
+                 * EMAIL = campo tipo email
+                 * Todo lo demás = texto
                  */
 
-                if (
-                    campo.campo === "EMAIL"
-                ) {
+                if (campo.campo === "EMAIL") {
 
                     input.type = "email";
 
@@ -405,10 +377,6 @@
                 input.required = true;
 
 
-                /*
-                 * Agregar al formulario
-                 */
-
                 contenedorCampos.appendChild(
                     label
                 );
@@ -419,12 +387,88 @@
 
             });
 
+
+            /*
+             * ==========================================
+             * EXPERIENCIAS
+             * ==========================================
+             */
+
+            const experiencias =
+                datos.experiencias || [];
+
+
+            const listaExperiencias =
+                document.getElementById(
+                    "listaExperiencias"
+                );
+
+
+            listaExperiencias.innerHTML = "";
+
+
+            /*
+             * Solo mostrar experiencias ACTIVAS
+             */
+
+            experiencias.forEach(function(experiencia) {
+
+                if (!experiencia.activa) {
+                    return;
+                }
+
+
+                const label =
+                    document.createElement("label");
+
+                label.className =
+                    "opcion";
+
+
+                const input =
+                    document.createElement("input");
+
+                input.type =
+                    "radio";
+
+                input.name =
+                    "experiencia";
+
+                input.value =
+                    experiencia.id;
+
+                input.required =
+                    true;
+
+
+                const span =
+                    document.createElement("span");
+
+                span.textContent =
+                    experiencia.nombre;
+
+
+                label.appendChild(
+                    input
+                );
+
+                label.appendChild(
+                    span
+                );
+
+
+                listaExperiencias.appendChild(
+                    label
+                );
+
+            });
+
         };
 
 
         /*
          * ==========================================
-         * CARGAR CONFIGURACIÓN DESDE APPS SCRIPT
+         * CARGAR CONFIGURACIÓN
          * ==========================================
          */
 
