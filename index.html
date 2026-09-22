@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
 
     <meta charset="UTF-8">
@@ -808,7 +809,6 @@
                         );
 
 
-
                     const experiencia =
                         experienciaSeleccionada
                             ? experienciaSeleccionada.value
@@ -920,14 +920,14 @@
 
 
                                 boton.textContent =
-                                    configTextoBotonOriginal();
+                                    "INGRESAR";
 
                             }
 
 
 
                             /*
-                             * LIMPIAR CALLBACK
+                             * ELIMINAR CALLBACK
                              */
 
                             delete window[
@@ -980,33 +980,67 @@
 
 
                     /*
-                     * AGREGAR AL DOCUMENTO
+                     * ==================================
+                     * LIMPIAR SCRIPT AL TERMINAR
+                     * ==================================
+                     */
+
+                    scriptRegistro.onload =
+                        function() {
+
+                            scriptRegistro.remove();
+
+                        };
+
+
+                    scriptRegistro.onerror =
+                        function() {
+
+                            scriptRegistro.remove();
+
+                        };
+
+
+
+                    /*
+                     * AGREGAR SCRIPT
                      */
 
                     document.head.appendChild(
                         scriptRegistro
                     );
 
+
+
+                    /*
+                     * SEGURIDAD:
+                     * SI POR ALGUNA RAZÓN EL NAVEGADOR
+                     * NO DISPARA ONLOAD/ONERROR,
+                     * EL SCRIPT SE ELIMINA IGUALMENTE.
+                     */
+
+                    setTimeout(
+                        function() {
+
+                            if (
+                                scriptRegistro.parentNode
+                            ) {
+
+                                scriptRegistro.remove();
+
+                            }
+
+                        },
+                        5000
+                    );
+
                 }
             );
-
-
-
-        /*
-         * ==========================================
-         * TEXTO ORIGINAL DEL BOTÓN
-         * ==========================================
-         */
-
-        function configTextoBotonOriginal() {
-
-            return "INGRESAR";
-
-        }
 
 
     </script>
 
 
 </body>
+
 </html>
