@@ -853,92 +853,6 @@
 
 
                     /*
-                     * CALLBACK ÚNICO
-                     */
-
-                    const nombreCallback =
-                        "cabinaRegistroCallback_" +
-                        Date.now();
-
-
-
-                    /*
-                     * FUNCIÓN CALLBACK
-                     */
-
-                    window[nombreCallback] =
-                        function(respuesta) {
-
-
-                            console.log(
-                                "Respuesta registro:",
-                                respuesta
-                            );
-
-
-
-                            /*
-                             * REGISTRO CORRECTO
-                             */
-
-                            if (
-                                respuesta &&
-                                respuesta.ok
-                            ) {
-
-                                mensaje.textContent =
-                                    "Registro realizado correctamente.";
-
-                                boton.textContent =
-                                    "INGRESADO";
-
-
-                                /*
-                                 * LIMPIAR FORMULARIO
-                                 */
-
-                                document
-                                    .getElementById(
-                                        "formulario"
-                                    )
-                                    .reset();
-
-
-                            } else {
-
-
-                                /*
-                                 * ERROR
-                                 */
-
-                                mensaje.textContent =
-                                    "No fue posible registrar los datos.";
-
-
-                                boton.disabled =
-                                    false;
-
-
-                                boton.textContent =
-                                    "INGRESAR";
-
-                            }
-
-
-
-                            /*
-                             * ELIMINAR CALLBACK
-                             */
-
-                            delete window[
-                                nombreCallback
-                            ];
-
-                        };
-
-
-
-                    /*
                      * ==================================
                      * CONSTRUIR URL
                      * ==================================
@@ -958,80 +872,73 @@
                         "&experiencia=" +
                         encodeURIComponent(
                             experiencia
-                        ) +
-                        "&prefix=" +
-                        nombreCallback;
-
-
-
-                    /*
-                     * CREAR SCRIPT JSONP
-                     */
-
-                    const scriptRegistro =
-                        document.createElement(
-                            "script"
                         );
 
 
-                    scriptRegistro.src =
-                        url;
-
-
 
                     /*
                      * ==================================
-                     * LIMPIAR SCRIPT AL TERMINAR
+                     * ENVIAR CON FETCH
                      * ==================================
                      */
 
-                    scriptRegistro.onload =
+                    fetch(
+                        url,
+                        {
+                            method: "GET",
+                            mode: "no-cors"
+                        }
+                    )
+                    .then(
                         function() {
 
-                            scriptRegistro.remove();
 
-                        };
+                            /*
+                             * REGISTRO ENVIADO
+                             */
 
-
-                    scriptRegistro.onerror =
-                        function() {
-
-                            scriptRegistro.remove();
-
-                        };
+                            mensaje.textContent =
+                                "Registro realizado correctamente.";
 
 
-
-                    /*
-                     * AGREGAR SCRIPT
-                     */
-
-                    document.head.appendChild(
-                        scriptRegistro
-                    );
+                            boton.textContent =
+                                "INGRESADO";
 
 
+                            /*
+                             * LIMPIAR FORMULARIO
+                             */
 
-                    /*
-                     * SEGURIDAD:
-                     * SI POR ALGUNA RAZÓN EL NAVEGADOR
-                     * NO DISPARA ONLOAD/ONERROR,
-                     * EL SCRIPT SE ELIMINA IGUALMENTE.
-                     */
+                            document
+                                .getElementById(
+                                    "formulario"
+                                )
+                                .reset();
 
-                    setTimeout(
-                        function() {
+                        }
+                    )
+                    .catch(
+                        function(error) {
 
-                            if (
-                                scriptRegistro.parentNode
-                            ) {
 
-                                scriptRegistro.remove();
+                            console.error(
+                                "Error al registrar:",
+                                error
+                            );
 
-                            }
 
-                        },
-                        5000
+                            mensaje.textContent =
+                                "No fue posible registrar los datos.";
+
+
+                            boton.disabled =
+                                false;
+
+
+                            boton.textContent =
+                                "INGRESAR";
+
+                        }
                     );
 
                 }
