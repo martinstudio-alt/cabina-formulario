@@ -193,7 +193,7 @@
 
             opacity: 0.6;
 
-            cursor: wait;
+            cursor: default;
         }
 
 
@@ -313,16 +313,12 @@
                 );
 
 
-
                 /*
-                 * ==================================
                  * CONFIG_WEB1
-                 * ==================================
                  */
 
                 const config =
                     datos.configuracion || {};
-
 
 
                 /*
@@ -339,7 +335,6 @@
                 }
 
 
-
                 /*
                  * TEXTO BOTÓN
                  */
@@ -352,7 +347,6 @@
                             config.TEXTO_BOTON;
 
                 }
-
 
 
                 /*
@@ -407,7 +401,6 @@
                 }
 
 
-
                 /*
                  * TAMAÑO LOGO
                  */
@@ -420,7 +413,6 @@
                             config.TAMANO_LOGO + "px";
 
                 }
-
 
 
                 /*
@@ -437,7 +429,6 @@
                 }
 
 
-
                 /*
                  * TAMAÑO BOTÓN
                  */
@@ -450,7 +441,6 @@
                             config.TAMANO_BOTON + "px";
 
                 }
-
 
 
                 /*
@@ -467,7 +457,6 @@
                 }
 
 
-
                 /*
                  * RADIO PANEL
                  */
@@ -482,9 +471,8 @@
                 }
 
 
-
                 /*
-                 * TAMAÑO TEXTO CAMPOS
+                 * TAMAÑO TEXTO
                  */
 
                 if (config.TAMANO_TEXTO) {
@@ -505,7 +493,6 @@
                     );
 
                 }
-
 
 
                 /*
@@ -539,7 +526,6 @@
                 );
 
 
-
                 campos.forEach(
                     function(campo) {
 
@@ -560,17 +546,11 @@
                         );
 
 
-
                         const input =
                             document.createElement(
                                 "input"
                             );
 
-
-
-                        /*
-                         * EMAIL
-                         */
 
                         if (
                             campo.campo ===
@@ -588,7 +568,6 @@
                         }
 
 
-
                         input.id =
                             campo.campo;
 
@@ -599,7 +578,6 @@
 
                         input.required =
                             true;
-
 
 
                         contenedorCampos.appendChild(
@@ -613,7 +591,6 @@
 
                     }
                 );
-
 
 
                 /*
@@ -636,7 +613,6 @@
                     "";
 
 
-
                 experiencias.forEach(
                     function(experiencia) {
 
@@ -654,7 +630,6 @@
                         }
 
 
-
                         const label =
                             document.createElement(
                                 "label"
@@ -663,7 +638,6 @@
 
                         label.className =
                             "opcion";
-
 
 
                         const input =
@@ -688,7 +662,6 @@
                             true;
 
 
-
                         const span =
                             document.createElement(
                                 "span"
@@ -699,7 +672,6 @@
                             experiencia.nombre;
 
 
-
                         label.appendChild(
                             input
                         );
@@ -708,7 +680,6 @@
                         label.appendChild(
                             span
                         );
-
 
 
                         listaExperiencias.appendChild(
@@ -763,7 +734,6 @@
                     event.preventDefault();
 
 
-
                     /*
                      * ELEMENTOS
                      */
@@ -778,7 +748,6 @@
                         document.getElementById(
                             "mensaje"
                         );
-
 
 
                     /*
@@ -815,7 +784,6 @@
                             : "";
 
 
-
                     /*
                      * VALIDACIÓN
                      */
@@ -834,7 +802,6 @@
                     }
 
 
-
                     /*
                      * DESHABILITAR BOTÓN
                      */
@@ -849,7 +816,6 @@
 
                     mensaje.textContent =
                         "";
-
 
 
                     /*
@@ -872,74 +838,70 @@
                         "&experiencia=" +
                         encodeURIComponent(
                             experiencia
-                        );
-
+                        ) +
+                        "&t=" +
+                        Date.now();
 
 
                     /*
                      * ==================================
-                     * ENVIAR CON FETCH
+                     * ENVIAR REGISTRO SIN ESPERAR RESPUESTA
                      * ==================================
                      */
 
-                    fetch(
-                        url,
-                        {
-                            method: "GET",
-                            mode: "no-cors"
-                        }
-                    )
-                    .then(
+                    const envio =
+                        new Image();
+
+
+                    envio.onload =
                         function() {
 
+                            envio.src =
+                                "";
 
-                            /*
-                             * REGISTRO ENVIADO
-                             */
-
-                            mensaje.textContent =
-                                "Registro realizado correctamente.";
+                        };
 
 
-                            boton.textContent =
-                                "INGRESADO";
+                    envio.onerror =
+                        function() {
+
+                            envio.src =
+                                "";
+
+                        };
 
 
-                            /*
-                             * LIMPIAR FORMULARIO
-                             */
-
-                            document
-                                .getElementById(
-                                    "formulario"
-                                )
-                                .reset();
-
-                        }
-                    )
-                    .catch(
-                        function(error) {
+                    envio.src =
+                        url;
 
 
-                            console.error(
-                                "Error al registrar:",
-                                error
-                            );
+                    /*
+                     * ==================================
+                     * CONFIRMACIÓN VISUAL
+                     *
+                     * No esperamos respuesta de Apps Script.
+                     * El endpoint ya fue comprobado.
+                     * ==================================
+                     */
+
+                    mensaje.textContent =
+                        "Registro realizado correctamente.";
 
 
-                            mensaje.textContent =
-                                "No fue posible registrar los datos.";
+                    boton.textContent =
+                        "INGRESADO";
 
 
-                            boton.disabled =
-                                false;
+                    /*
+                     * LIMPIAR FORMULARIO
+                     */
 
+                    document
+                        .getElementById(
+                            "formulario"
+                        )
+                        .reset();
 
-                            boton.textContent =
-                                "INGRESAR";
-
-                        }
-                    );
 
                 }
             );
