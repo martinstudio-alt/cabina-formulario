@@ -15,7 +15,7 @@
             margin: 0;
             min-height: 100vh;
             font-family: Arial, Helvetica, sans-serif;
-            background: #000;
+            background: #000000;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -25,7 +25,7 @@
         .contenedor {
             width: 100%;
             max-width: 430px;
-            background: white;
+            background: #FFFFFF;
             border-radius: 20px;
             padding: 30px 25px;
             box-shadow: 0 10px 35px rgba(0,0,0,0.35);
@@ -42,7 +42,7 @@
             text-align: center;
             margin: 0 0 25px 0;
             font-size: 25px;
-            color: #222;
+            color: #222222;
         }
 
         label {
@@ -50,14 +50,14 @@
             margin-top: 15px;
             margin-bottom: 7px;
             font-weight: bold;
-            color: #333;
+            color: #333333;
         }
 
         input[type="text"],
         input[type="email"] {
             width: 100%;
             padding: 14px;
-            border: 1px solid #ccc;
+            border: 1px solid #CCCCCC;
             border-radius: 10px;
             font-size: 16px;
         }
@@ -70,7 +70,7 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            border: 1px solid #ddd;
+            border: 1px solid #DDDDDD;
             border-radius: 10px;
             padding: 14px;
             margin-top: 10px;
@@ -92,8 +92,8 @@
             padding: 15px;
             border: none;
             border-radius: 10px;
-            background: #111;
-            color: white;
+            background: #111111;
+            color: #FFFFFF;
             font-size: 17px;
             font-weight: bold;
             cursor: pointer;
@@ -109,13 +109,19 @@
 
     <div class="contenedor">
 
-        <img src="logoformulario.gif" alt="CABINA" class="logo">
+        <img
+            src="logoformulario.gif"
+            alt="CABINA"
+            class="logo"
+            id="logo"
+        >
 
-        <h1>Ingresa a la experiencia</h1>
+        <h1 id="titulo">Ingresa a la experiencia</h1>
 
         <form id="formulario">
 
-            <label for="nombre">Nombre</label>
+            <label for="nombre">Nombre y apellido</label>
+
             <input
                 type="text"
                 id="nombre"
@@ -123,15 +129,8 @@
                 required
             >
 
-            <label for="apellido">Apellido</label>
-            <input
-                type="text"
-                id="apellido"
-                name="apellido"
-                required
-            >
-
             <label for="email">Email</label>
+
             <input
                 type="email"
                 id="email"
@@ -164,13 +163,140 @@
 
             </div>
 
-            <button type="submit">
+            <button type="submit" id="boton">
                 INGRESAR
             </button>
 
         </form>
 
     </div>
+
+    <script>
+
+        /*
+         * CONFIGURACIÓN DESDE GOOGLE SHEETS
+         */
+
+        window.cabinaConfigCallback = function(config) {
+
+            console.log("Configuración CABINA recibida:", config);
+
+            /*
+             * Título
+             */
+            if (config.TITULO) {
+                document.getElementById("titulo").textContent =
+                    config.TITULO;
+            }
+
+            /*
+             * Texto del botón
+             */
+            if (config.TEXTO_BOTON) {
+                document.getElementById("boton").textContent =
+                    config.TEXTO_BOTON;
+            }
+
+            /*
+             * Colores
+             */
+            if (config.COLOR_FONDO) {
+                document.body.style.background =
+                    config.COLOR_FONDO;
+            }
+
+            if (config.COLOR_PANEL) {
+                document.querySelector(".contenedor").style.background =
+                    config.COLOR_PANEL;
+            }
+
+            if (config.COLOR_TEXTO) {
+                document.getElementById("titulo").style.color =
+                    config.COLOR_TEXTO;
+            }
+
+            if (config.COLOR_BOTON) {
+                document.getElementById("boton").style.background =
+                    config.COLOR_BOTON;
+            }
+
+            if (config.COLOR_TEXTO_BOTON) {
+                document.getElementById("boton").style.color =
+                    config.COLOR_TEXTO_BOTON;
+            }
+
+            /*
+             * Tamaños
+             */
+            if (config.TAMANO_LOGO) {
+                document.getElementById("logo").style.maxWidth =
+                    config.TAMANO_LOGO + "px";
+            }
+
+            if (config.TAMANO_TITULO) {
+                document.getElementById("titulo").style.fontSize =
+                    config.TAMANO_TITULO + "px";
+            }
+
+            if (config.TAMANO_BOTON) {
+                document.getElementById("boton").style.fontSize =
+                    config.TAMANO_BOTON + "px";
+            }
+
+            /*
+             * Ancho del formulario
+             */
+            if (config.ANCHO_PANEL) {
+                document.querySelector(".contenedor").style.maxWidth =
+                    config.ANCHO_PANEL + "px";
+            }
+
+            /*
+             * Radio de las esquinas
+             */
+            if (config.RADIO_PANEL) {
+                document.querySelector(".contenedor").style.borderRadius =
+                    config.RADIO_PANEL + "px";
+            }
+
+            /*
+             * Tamaño de los textos de los campos
+             */
+            if (config.TAMANO_TEXTO) {
+
+                const inputs = document.querySelectorAll(
+                    'input[type="text"], input[type="email"]'
+                );
+
+                inputs.forEach(function(input) {
+                    input.style.fontSize =
+                        config.TAMANO_TEXTO + "px";
+                });
+
+                const opciones = document.querySelectorAll(
+                    ".opcion span"
+                );
+
+                opciones.forEach(function(opcion) {
+                    opcion.style.fontSize =
+                        config.TAMANO_TEXTO + "px";
+                });
+            }
+        };
+
+
+        /*
+         * CARGAR CONFIGURACIÓN
+         */
+
+        const script = document.createElement("script");
+
+        script.src =
+            "https://script.google.com/macros/s/AKfycbwPH_9hWI_TaPSRoFdcTT73DStbsNYHl_NDrkxTJk3Xe5EVBVbu_KEVvyD_v3qNoRCT/exec?prefix=cabinaConfigCallback";
+
+        document.head.appendChild(script);
+
+    </script>
 
 </body>
 </html>
