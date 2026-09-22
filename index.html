@@ -120,23 +120,9 @@
 
         <form id="formulario">
 
-            <label for="nombre">Nombre y apellido</label>
+            <!-- Los campos serán cargados desde Google Sheets -->
 
-            <input
-                type="text"
-                id="nombre"
-                name="nombre"
-                required
-            >
-
-            <label for="email">Email</label>
-
-            <input
-                type="email"
-                id="email"
-                name="email"
-                required
-            >
+            <div id="camposFormulario"></div>
 
             <div class="experiencias">
 
@@ -171,97 +157,160 @@
 
     </div>
 
+
     <script>
 
         /*
-         * CONFIGURACIÓN DESDE GOOGLE SHEETS
+         * ==========================================
+         * CONFIGURACIÓN RECIBIDA DESDE GOOGLE SHEETS
+         * ==========================================
          */
 
-        window.cabinaConfigCallback = function(config) {
+        window.cabinaConfigCallback = function(datos) {
 
-            console.log("Configuración CABINA recibida:", config);
+            console.log(
+                "Configuración CABINA recibida:",
+                datos
+            );
+
 
             /*
-             * Título
+             * ==========================================
+             * CONFIG_WEB1
+             * ==========================================
              */
+
+            const config = datos.configuracion || {};
+
+
+            /*
+             * TÍTULO
+             */
+
             if (config.TITULO) {
+
                 document.getElementById("titulo").textContent =
                     config.TITULO;
+
             }
 
+
             /*
-             * Texto del botón
+             * TEXTO DEL BOTÓN
              */
+
             if (config.TEXTO_BOTON) {
+
                 document.getElementById("boton").textContent =
                     config.TEXTO_BOTON;
+
             }
 
+
             /*
-             * Colores
+             * COLORES
              */
+
             if (config.COLOR_FONDO) {
+
                 document.body.style.background =
                     config.COLOR_FONDO;
+
             }
 
             if (config.COLOR_PANEL) {
+
                 document.querySelector(".contenedor").style.background =
                     config.COLOR_PANEL;
+
             }
 
             if (config.COLOR_TEXTO) {
+
                 document.getElementById("titulo").style.color =
                     config.COLOR_TEXTO;
+
             }
 
             if (config.COLOR_BOTON) {
+
                 document.getElementById("boton").style.background =
                     config.COLOR_BOTON;
+
             }
 
             if (config.COLOR_TEXTO_BOTON) {
+
                 document.getElementById("boton").style.color =
                     config.COLOR_TEXTO_BOTON;
+
             }
 
+
             /*
-             * Tamaños
+             * TAMAÑO DEL LOGO
              */
+
             if (config.TAMANO_LOGO) {
+
                 document.getElementById("logo").style.maxWidth =
                     config.TAMANO_LOGO + "px";
+
             }
+
+
+            /*
+             * TAMAÑO DEL TÍTULO
+             */
 
             if (config.TAMANO_TITULO) {
+
                 document.getElementById("titulo").style.fontSize =
                     config.TAMANO_TITULO + "px";
+
             }
+
+
+            /*
+             * TAMAÑO DEL BOTÓN
+             */
 
             if (config.TAMANO_BOTON) {
+
                 document.getElementById("boton").style.fontSize =
                     config.TAMANO_BOTON + "px";
+
             }
 
+
             /*
-             * Ancho del formulario
+             * ANCHO DEL PANEL
              */
+
             if (config.ANCHO_PANEL) {
+
                 document.querySelector(".contenedor").style.maxWidth =
                     config.ANCHO_PANEL + "px";
+
             }
 
+
             /*
-             * Radio de las esquinas
+             * RADIO DEL PANEL
              */
+
             if (config.RADIO_PANEL) {
+
                 document.querySelector(".contenedor").style.borderRadius =
                     config.RADIO_PANEL + "px";
+
             }
 
+
             /*
-             * Tamaño de los textos de los campos
+             * TAMAÑO DEL TEXTO DE LOS CAMPOS
              */
+
             if (config.TAMANO_TEXTO) {
 
                 const inputs = document.querySelectorAll(
@@ -269,30 +318,123 @@
                 );
 
                 inputs.forEach(function(input) {
+
                     input.style.fontSize =
                         config.TAMANO_TEXTO + "px";
+
                 });
 
-                const opciones = document.querySelectorAll(
-                    ".opcion span"
+            }
+
+
+            /*
+             * ==========================================
+             * CAMPOS_WEB1
+             * ==========================================
+             */
+
+            const campos = datos.campos || [];
+
+            const contenedorCampos =
+                document.getElementById("camposFormulario");
+
+
+            /*
+             * Limpiar campos existentes
+             */
+
+            contenedorCampos.innerHTML = "";
+
+
+            /*
+             * Ordenar por ORDEN
+             */
+
+            campos.sort(function(a, b) {
+
+                return Number(a.orden) - Number(b.orden);
+
+            });
+
+
+            /*
+             * Crear cada campo activo
+             */
+
+            campos.forEach(function(campo) {
+
+                const label =
+                    document.createElement("label");
+
+                label.textContent =
+                    campo.texto;
+
+                label.setAttribute(
+                    "for",
+                    campo.campo
                 );
 
-                opciones.forEach(function(opcion) {
-                    opcion.style.fontSize =
-                        config.TAMANO_TEXTO + "px";
-                });
-            }
+
+                const input =
+                    document.createElement("input");
+
+
+                /*
+                 * Identificar tipo de campo
+                 */
+
+                if (
+                    campo.campo === "EMAIL"
+                ) {
+
+                    input.type = "email";
+
+                } else {
+
+                    input.type = "text";
+
+                }
+
+
+                input.id =
+                    campo.campo;
+
+                input.name =
+                    campo.campo;
+
+                input.required = true;
+
+
+                /*
+                 * Agregar al formulario
+                 */
+
+                contenedorCampos.appendChild(
+                    label
+                );
+
+                contenedorCampos.appendChild(
+                    input
+                );
+
+            });
+
         };
 
 
         /*
-         * CARGAR CONFIGURACIÓN
+         * ==========================================
+         * CARGAR CONFIGURACIÓN DESDE APPS SCRIPT
+         * ==========================================
          */
 
-        const script = document.createElement("script");
+        const script =
+            document.createElement("script");
+
 
         script.src =
             "https://script.google.com/macros/s/AKfycbwPH_9hWI_TaPSRoFdcTT73DStbsNYHl_NDrkxTJk3Xe5EVBVbu_KEVvyD_v3qNoRCT/exec?prefix=cabinaConfigCallback";
+
 
         document.head.appendChild(script);
 
