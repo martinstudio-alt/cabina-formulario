@@ -3,212 +3,212 @@
 
 <head>
 
-    <meta charset="UTF-8">
+  <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
-    <title>CABINA</title>
+  <title>CABINA</title>
 
+  <style>
 
-    <style>
+    * {
+      box-sizing: border-box;
+    }
 
-        * {
-            box-sizing: border-box;
-        }
+    body {
 
+      margin: 0;
+      padding: 0;
 
-        body {
+      min-height: 100vh;
 
-            margin: 0;
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
 
-            min-height: 100vh;
+      background: #000000;
 
-            font-family:
-                Arial,
-                Helvetica,
-                sans-serif;
+      display: flex;
 
-            background: #000000;
+      justify-content: center;
 
-            display: flex;
+      align-items: center;
 
-            justify-content: center;
+      padding: 20px;
 
-            align-items: center;
+    }
 
-            padding: 20px;
-        }
+    .contenedor {
 
+      width: 100%;
 
-        .contenedor {
+      max-width: 430px;
 
-            width: 100%;
+      background: #FFFFFF;
 
-            max-width: 430px;
+      border-radius: 20px;
 
-            background: #FFFFFF;
+      padding: 30px 25px;
 
-            border-radius: 20px;
+      box-shadow:
+        0 10px 35px
+        rgba(0,0,0,0.35);
 
-            padding: 30px 25px;
+    }
 
-            box-shadow:
-                0 10px 35px
-                rgba(0,0,0,0.35);
-        }
+    .logo {
 
+      width: 100%;
 
-        .logo {
+      max-width: 260px;
 
-            width: 100%;
+      display: block;
 
-            max-width: 260px;
+      margin:
+        0 auto 25px auto;
 
-            display: block;
+    }
 
-            margin:
-                0 auto 25px auto;
-        }
+    h1 {
 
+      text-align: center;
 
-        h1 {
+      margin:
+        0 0 25px 0;
 
-            text-align: center;
+      font-size: 25px;
 
-            margin:
-                0 0 25px 0;
+      color: #222222;
 
-            font-size: 25px;
+    }
 
-            color: #222222;
-        }
+    label {
 
+      display: block;
 
-        label {
+      margin-top: 15px;
 
-            display: block;
+      margin-bottom: 7px;
 
-            margin-top: 15px;
+      font-weight: bold;
 
-            margin-bottom: 7px;
+      color: #333333;
 
-            font-weight: bold;
+    }
 
-            color: #333333;
-        }
+    input[type="text"],
+    input[type="email"] {
 
+      width: 100%;
 
-        input[type="text"],
-        input[type="email"] {
+      padding: 14px;
 
-            width: 100%;
+      border:
+        1px solid #CCCCCC;
 
-            padding: 14px;
+      border-radius: 10px;
 
-            border:
-                1px solid #CCCCCC;
+      font-size: 16px;
 
-            border-radius: 10px;
+    }
 
-            font-size: 16px;
-        }
+    .experiencias {
 
+      margin-top: 20px;
 
-        .experiencias {
+    }
 
-            margin-top: 20px;
-        }
+    .opcion {
 
+      display: flex;
 
-        .opcion {
+      align-items: center;
 
-            display: flex;
+      gap: 10px;
 
-            align-items: center;
+      border:
+        1px solid #DDDDDD;
 
-            gap: 10px;
+      border-radius: 10px;
 
-            border:
-                1px solid #DDDDDD;
+      padding: 14px;
 
-            border-radius: 10px;
+      margin-top: 10px;
 
-            padding: 14px;
+      cursor: pointer;
 
-            margin-top: 10px;
+    }
 
-            cursor: pointer;
-        }
+    .opcion input {
 
+      width: 20px;
 
-        .opcion input {
+      height: 20px;
 
-            width: 20px;
+    }
 
-            height: 20px;
-        }
+    .opcion span {
 
+      font-size: 16px;
 
-        .opcion span {
+    }
 
-            font-size: 16px;
-        }
+    button {
 
+      width: 100%;
 
-        button {
+      margin-top: 25px;
 
-            width: 100%;
+      padding: 15px;
 
-            margin-top: 25px;
+      border: none;
 
-            padding: 15px;
+      border-radius: 10px;
 
-            border: none;
+      background: #111111;
 
-            border-radius: 10px;
+      color: #FFFFFF;
 
-            background: #111111;
+      font-size: 17px;
 
-            color: #FFFFFF;
+      font-weight: bold;
 
-            font-size: 17px;
+      cursor: pointer;
 
-            font-weight: bold;
+    }
 
-            cursor: pointer;
-        }
+    button:active {
 
+      transform:
+        scale(0.98);
 
-        button:active {
+    }
 
-            transform:
-                scale(0.98);
-        }
+    button:disabled {
 
+      opacity: 0.6;
 
-        button:disabled {
+      cursor: default;
 
-            opacity: 0.6;
+    }
 
-            cursor: default;
-        }
+    #mensaje {
 
+      text-align: center;
 
-        #mensaje {
+      margin-top: 15px;
 
-            text-align: center;
+      font-size: 15px;
 
-            margin-top: 15px;
+      font-weight: bold;
 
-            font-size: 15px;
+    }
 
-            font-weight: bold;
-        }
-
-    </style>
+  </style>
 
 </head>
 
@@ -216,698 +216,792 @@
 <body>
 
 
-    <div class="contenedor">
+  <div class="contenedor">
 
 
-        <img
-            src="logoformulario.gif"
-            alt="CABINA"
-            class="logo"
-            id="logo"
-        >
+    <img
+      src="logoformulario.gif"
+      alt="CABINA"
+      class="logo"
+      id="logo"
+    >
 
 
-        <h1 id="titulo">
-            Ingresa a la experiencia
-        </h1>
+    <h1 id="titulo">
+      Ingresa a la experiencia
+    </h1>
 
 
-        <form id="formulario">
+    <form id="formulario">
 
 
-            <!-- ==================================
-                 CAMPOS DINÁMICOS
-            =================================== -->
+      <!-- ==================================
+           CAMPOS DINÁMICOS
+      =================================== -->
 
-            <div id="camposFormulario"></div>
-
-
-            <!-- ==================================
-                 EXPERIENCIAS DINÁMICAS
-            =================================== -->
-
-            <div class="experiencias">
-
-                <label id="tituloExperiencias">
-                    Elige tu experiencia
-                </label>
-
-                <div id="listaExperiencias"></div>
-
-            </div>
+      <div id="camposFormulario"></div>
 
 
-            <!-- ==================================
-                 BOTÓN
-            =================================== -->
+      <!-- ==================================
+           EXPERIENCIAS DINÁMICAS
+      =================================== -->
 
-            <button
-                type="submit"
-                id="boton"
-            >
-                INGRESAR
-            </button>
+      <div class="experiencias">
 
+        <label id="tituloExperiencias">
+          Elige tu experiencia
+        </label>
 
-            <!-- ==================================
-                 MENSAJE
-            =================================== -->
+        <div id="listaExperiencias"></div>
 
-            <div id="mensaje"></div>
+      </div>
 
 
-        </form>
+      <!-- ==================================
+           BOTÓN
+      =================================== -->
+
+      <button
+        type="submit"
+        id="boton"
+      >
+        INGRESAR
+      </button>
 
 
-    </div>
+      <!-- ==================================
+           MENSAJE
+      =================================== -->
+
+      <div id="mensaje"></div>
+
+
+    </form>
+
+
+  </div>
 
 
 
-    <script>
+  <script>
+
+
+    /*
+     * ==========================================
+     * URL DE GOOGLE APPS SCRIPT
+     * ==========================================
+     */
+
+    const URL_APPS_SCRIPT =
+      "https://script.google.com/macros/s/AKfycbwPH_9hWI_TaPSRoFdcTT73DStbsNYHl_NDrkxTJk3Xe5EVBVbu_KEVvyD_v3qNoRCT/exec";
+
+
+
+    /*
+     * ==========================================
+     * CONFIGURACIÓN RECIBIDA
+     * ==========================================
+     */
+
+    window.cabinaConfigCallback =
+      function(datos) {
+
+
+        console.log(
+          "Configuración CABINA recibida:",
+          datos
+        );
 
 
         /*
-         * ==========================================
-         * URL DE GOOGLE APPS SCRIPT
-         * ==========================================
+         * CONFIG_WEB1
          */
 
-        const URL_APPS_SCRIPT =
-            "https://script.google.com/macros/s/AKfycbwPH_9hWI_TaPSRoFdcTT73DStbsNYHl_NDrkxTJk3Xe5EVBVbu_KEVvyD_v3qNoRCT/exec";
-
+        const config =
+          datos.configuracion || {};
 
 
         /*
-         * ==========================================
-         * CONFIGURACIÓN RECIBIDA
-         * ==========================================
+         * TÍTULO
          */
 
-        window.cabinaConfigCallback =
-            function(datos) {
+        if (config.TITULO) {
 
+          document
+            .getElementById("titulo")
+            .textContent =
+              config.TITULO;
 
-                console.log(
-                    "Configuración CABINA recibida:",
-                    datos
-                );
+        }
 
 
-                /*
-                 * CONFIG_WEB1
-                 */
+        /*
+         * TEXTO BOTÓN
+         */
 
-                const config =
-                    datos.configuracion || {};
+        if (config.TEXTO_BOTON) {
 
+          document
+            .getElementById("boton")
+            .textContent =
+              config.TEXTO_BOTON;
 
-                /*
-                 * TÍTULO
-                 */
+        }
 
-                if (config.TITULO) {
 
-                    document
-                        .getElementById("titulo")
-                        .textContent =
-                            config.TITULO;
+        /*
+         * COLORES
+         */
 
-                }
+        if (config.COLOR_FONDO) {
 
+          document.body.style.background =
+            config.COLOR_FONDO;
 
-                /*
-                 * TEXTO BOTÓN
-                 */
+        }
 
-                if (config.TEXTO_BOTON) {
 
-                    document
-                        .getElementById("boton")
-                        .textContent =
-                            config.TEXTO_BOTON;
+        if (config.COLOR_PANEL) {
 
-                }
+          document
+            .querySelector(".contenedor")
+            .style.background =
+              config.COLOR_PANEL;
 
+        }
 
-                /*
-                 * COLORES
-                 */
 
-                if (config.COLOR_FONDO) {
+        if (config.COLOR_TEXTO) {
 
-                    document.body.style.background =
-                        config.COLOR_FONDO;
+          document
+            .getElementById("titulo")
+            .style.color =
+              config.COLOR_TEXTO;
 
-                }
+        }
 
 
-                if (config.COLOR_PANEL) {
+        if (config.COLOR_BOTON) {
 
-                    document
-                        .querySelector(".contenedor")
-                        .style.background =
-                            config.COLOR_PANEL;
+          document
+            .getElementById("boton")
+            .style.background =
+              config.COLOR_BOTON;
 
-                }
+        }
 
 
-                if (config.COLOR_TEXTO) {
+        if (config.COLOR_TEXTO_BOTON) {
 
-                    document
-                        .getElementById("titulo")
-                        .style.color =
-                            config.COLOR_TEXTO;
+          document
+            .getElementById("boton")
+            .style.color =
+              config.COLOR_TEXTO_BOTON;
 
-                }
+        }
 
 
-                if (config.COLOR_BOTON) {
+        /*
+         * TAMAÑO LOGO
+         */
 
-                    document
-                        .getElementById("boton")
-                        .style.background =
-                            config.COLOR_BOTON;
+        if (config.TAMANO_LOGO) {
 
-                }
+          document
+            .getElementById("logo")
+            .style.maxWidth =
+              config.TAMANO_LOGO + "px";
 
+        }
 
-                if (config.COLOR_TEXTO_BOTON) {
 
-                    document
-                        .getElementById("boton")
-                        .style.color =
-                            config.COLOR_TEXTO_BOTON;
+        /*
+         * TAMAÑO TÍTULO
+         */
 
-                }
+        if (config.TAMANO_TITULO) {
 
+          document
+            .getElementById("titulo")
+            .style.fontSize =
+              config.TAMANO_TITULO + "px";
 
-                /*
-                 * TAMAÑO LOGO
-                 */
+        }
 
-                if (config.TAMANO_LOGO) {
 
-                    document
-                        .getElementById("logo")
-                        .style.maxWidth =
-                            config.TAMANO_LOGO + "px";
+        /*
+         * TAMAÑO BOTÓN
+         */
 
-                }
+        if (config.TAMANO_BOTON) {
 
+          document
+            .getElementById("boton")
+            .style.fontSize =
+              config.TAMANO_BOTON + "px";
 
-                /*
-                 * TAMAÑO TÍTULO
-                 */
+        }
 
-                if (config.TAMANO_TITULO) {
 
-                    document
-                        .getElementById("titulo")
-                        .style.fontSize =
-                            config.TAMANO_TITULO + "px";
+        /*
+         * ANCHO PANEL
+         */
 
-                }
+        if (config.ANCHO_PANEL) {
 
+          document
+            .querySelector(".contenedor")
+            .style.maxWidth =
+              config.ANCHO_PANEL + "px";
 
-                /*
-                 * TAMAÑO BOTÓN
-                 */
+        }
 
-                if (config.TAMANO_BOTON) {
 
-                    document
-                        .getElementById("boton")
-                        .style.fontSize =
-                            config.TAMANO_BOTON + "px";
+        /*
+         * RADIO PANEL
+         */
 
-                }
+        if (config.RADIO_PANEL) {
 
+          document
+            .querySelector(".contenedor")
+            .style.borderRadius =
+              config.RADIO_PANEL + "px";
 
-                /*
-                 * ANCHO PANEL
-                 */
+        }
 
-                if (config.ANCHO_PANEL) {
 
-                    document
-                        .querySelector(".contenedor")
-                        .style.maxWidth =
-                            config.ANCHO_PANEL + "px";
+        /*
+         * TAMAÑO TEXTO
+         */
 
-                }
+        if (config.TAMANO_TEXTO) {
 
+          const inputs =
+            document.querySelectorAll(
+              'input[type="text"], input[type="email"]'
+            );
 
-                /*
-                 * RADIO PANEL
-                 */
 
-                if (config.RADIO_PANEL) {
+          inputs.forEach(
+            function(input) {
 
-                    document
-                        .querySelector(".contenedor")
-                        .style.borderRadius =
-                            config.RADIO_PANEL + "px";
+              input.style.fontSize =
+                config.TAMANO_TEXTO + "px";
 
-                }
+            }
+          );
 
+        }
 
-                /*
-                 * TAMAÑO TEXTO
-                 */
 
-                if (config.TAMANO_TEXTO) {
+        /*
+         * ==================================
+         * CAMPOS_WEB1
+         * ==================================
+         */
 
-                    const inputs =
-                        document.querySelectorAll(
-                            'input[type="text"], input[type="email"]'
-                        );
+        const campos =
+          datos.campos || [];
 
 
-                    inputs.forEach(
-                        function(input) {
+        const contenedorCampos =
+          document.getElementById(
+            "camposFormulario"
+          );
 
-                            input.style.fontSize =
-                                config.TAMANO_TEXTO + "px";
 
-                        }
-                    );
+        contenedorCampos.innerHTML =
+          "";
 
-                }
 
+        campos.sort(
+          function(a, b) {
 
-                /*
-                 * ==================================
-                 * CAMPOS_WEB1
-                 * ==================================
-                 */
+            return Number(a.orden)
+              -
+              Number(b.orden);
 
-                const campos =
-                    datos.campos || [];
+          }
+        );
 
 
-                const contenedorCampos =
-                    document.getElementById(
-                        "camposFormulario"
-                    );
+        campos.forEach(
+          function(campo) {
 
 
-                contenedorCampos.innerHTML =
-                    "";
+            const label =
+              document.createElement(
+                "label"
+              );
 
 
-                campos.sort(
-                    function(a, b) {
+            label.textContent =
+              campo.texto;
 
-                        return Number(a.orden)
-                            -
-                            Number(b.orden);
 
-                    }
-                );
+            label.setAttribute(
+              "for",
+              campo.campo
+            );
 
 
-                campos.forEach(
-                    function(campo) {
+            const input =
+              document.createElement(
+                "input"
+              );
 
 
-                        const label =
-                            document.createElement(
-                                "label"
-                            );
+            if (
+              campo.campo ===
+              "EMAIL"
+            ) {
 
+              input.type =
+                "email";
 
-                        label.textContent =
-                            campo.texto;
+            } else {
 
+              input.type =
+                "text";
 
-                        label.setAttribute(
-                            "for",
-                            campo.campo
-                        );
+            }
 
 
-                        const input =
-                            document.createElement(
-                                "input"
-                            );
+            input.id =
+              campo.campo;
 
 
-                        if (
-                            campo.campo ===
-                            "EMAIL"
-                        ) {
+            input.name =
+              campo.campo;
 
-                            input.type =
-                                "email";
 
-                        } else {
+            input.required =
+              true;
 
-                            input.type =
-                                "text";
 
-                        }
+            contenedorCampos.appendChild(
+              label
+            );
 
 
-                        input.id =
-                            campo.campo;
+            contenedorCampos.appendChild(
+              input
+            );
 
+          }
+        );
 
-                        input.name =
-                            campo.campo;
 
+        /*
+         * ==================================
+         * EXPERIENCIAS
+         * ==================================
+         */
 
-                        input.required =
-                            true;
+        const experiencias =
+          datos.experiencias || [];
 
 
-                        contenedorCampos.appendChild(
-                            label
-                        );
+        const listaExperiencias =
+          document.getElementById(
+            "listaExperiencias"
+          );
 
 
-                        contenedorCampos.appendChild(
-                            input
-                        );
+        listaExperiencias.innerHTML =
+          "";
 
-                    }
-                );
 
+        experiencias.forEach(
+          function(experiencia) {
 
-                /*
-                 * ==================================
-                 * EXPERIENCIAS
-                 * ==================================
-                 */
 
-                const experiencias =
-                    datos.experiencias || [];
+            /*
+             * SOLO ACTIVAS
+             */
 
+            if (
+              !experiencia.activa
+            ) {
 
-                const listaExperiencias =
-                    document.getElementById(
-                        "listaExperiencias"
-                    );
+              return;
 
+            }
 
-                listaExperiencias.innerHTML =
-                    "";
 
+            const label =
+              document.createElement(
+                "label"
+              );
 
-                experiencias.forEach(
-                    function(experiencia) {
 
+            label.className =
+              "opcion";
 
-                        /*
-                         * SOLO ACTIVAS
-                         */
 
-                        if (
-                            !experiencia.activa
-                        ) {
+            const input =
+              document.createElement(
+                "input"
+              );
 
-                            return;
 
-                        }
+            input.type =
+              "radio";
 
 
-                        const label =
-                            document.createElement(
-                                "label"
-                            );
+            input.name =
+              "experiencia";
 
 
-                        label.className =
-                            "opcion";
+            input.value =
+              experiencia.id;
 
 
-                        const input =
-                            document.createElement(
-                                "input"
-                            );
+            input.required =
+              true;
 
 
-                        input.type =
-                            "radio";
+            const span =
+              document.createElement(
+                "span"
+              );
 
 
-                        input.name =
-                            "experiencia";
+            span.textContent =
+              experiencia.nombre;
 
 
-                        input.value =
-                            experiencia.id;
+            label.appendChild(
+              input
+            );
 
 
-                        input.required =
-                            true;
+            label.appendChild(
+              span
+            );
 
 
-                        const span =
-                            document.createElement(
-                                "span"
-                            );
+            listaExperiencias.appendChild(
+              label
+            );
 
+          }
+        );
 
-                        span.textContent =
-                            experiencia.nombre;
+      };
 
 
-                        label.appendChild(
-                            input
-                        );
 
+    /*
+     * ==========================================
+     * CARGAR CONFIGURACIÓN
+     * ==========================================
+     */
 
-                        label.appendChild(
-                            span
-                        );
+    const script =
+      document.createElement("script");
 
 
-                        listaExperiencias.appendChild(
-                            label
-                        );
+    script.src =
+      URL_APPS_SCRIPT +
+      "?prefix=cabinaConfigCallback";
 
-                    }
-                );
+
+    document.head.appendChild(
+      script
+    );
+
+
+
+    /*
+     * ==========================================
+     * ENVIAR REGISTRO
+     * ==========================================
+     */
+
+    document
+      .getElementById("formulario")
+      .addEventListener(
+        "submit",
+        function(event) {
+
+
+          /*
+           * EVITAR RECARGA
+           */
+
+          event.preventDefault();
+
+
+          /*
+           * ELEMENTOS
+           */
+
+          const boton =
+            document.getElementById(
+              "boton"
+            );
+
+
+          const mensaje =
+            document.getElementById(
+              "mensaje"
+            );
+
+
+          /*
+           * OBTENER DATOS
+           */
+
+          const nombreApellido =
+            document
+              .getElementById(
+                "NOMBRE_APELLIDO"
+              )
+              ?.value
+              .trim() || "";
+
+
+          const email =
+            document
+              .getElementById(
+                "EMAIL"
+              )
+              ?.value
+              .trim() || "";
+
+
+          const experienciaSeleccionada =
+            document.querySelector(
+              'input[name="experiencia"]:checked'
+            );
+
+
+          const experiencia =
+            experienciaSeleccionada
+              ? experienciaSeleccionada.value
+              : "";
+
+
+          /*
+           * VALIDACIÓN
+           */
+
+          if (
+            !nombreApellido ||
+            !email ||
+            !experiencia
+          ) {
+
+            mensaje.textContent =
+              "Completa todos los campos.";
+
+            return;
+
+          }
+
+
+          /*
+           * DESHABILITAR BOTÓN
+           */
+
+          boton.disabled =
+            true;
+
+
+          boton.textContent =
+            "ENVIANDO...";
+
+
+          mensaje.textContent =
+            "";
+
+
+          /*
+           * ==================================
+           * CONSTRUIR URL
+           * ==================================
+           */
+
+          const url =
+            URL_APPS_SCRIPT +
+            "?accion=registrar" +
+            "&nombreApellido=" +
+            encodeURIComponent(
+              nombreApellido
+            ) +
+            "&email=" +
+            encodeURIComponent(
+              email
+            ) +
+            "&experiencia=" +
+            encodeURIComponent(
+              experiencia
+            ) +
+            "&t=" +
+            Date.now();
+
+
+          /*
+           * ==================================
+           * ENVIAR REGISTRO Y ESPERAR RESPUESTA
+           * ==================================
+           */
+
+          const nombreCallback =
+            "respuestaRegistro_" +
+            Date.now();
+
+
+          window[nombreCallback] =
+            function(resultado) {
+
+
+              console.log(
+                "RESPUESTA REGISTRO:",
+                resultado
+              );
+
+
+              /*
+               * CABINA OCUPADA
+               */
+
+              if (
+                resultado &&
+                resultado.ocupada === true
+              ) {
+
+                mensaje.textContent =
+                  "Cabina ocupada. Espera un momento.";
+
+
+                boton.disabled =
+                  false;
+
+
+                boton.textContent =
+                  "INGRESAR";
+
+
+                delete window[nombreCallback];
+
+                scriptRegistro.remove();
+
+                return;
+
+              }
+
+
+              /*
+               * REGISTRO CORRECTO
+               */
+
+              if (
+                resultado &&
+                resultado.ok === true
+              ) {
+
+                mensaje.textContent =
+                  "Datos ingresados correctamente. Ahora puedes pasar a la cabina.";
+
+
+                boton.textContent =
+                  "INGRESADO";
+
+
+                document
+                  .getElementById(
+                    "formulario"
+                  )
+                  .reset();
+
+
+                delete window[nombreCallback];
+
+                scriptRegistro.remove();
+
+                return;
+
+              }
+
+
+              /*
+               * RESPUESTA NO ESPERADA
+               */
+
+              mensaje.textContent =
+                "No fue posible registrar la experiencia.";
+
+
+              boton.disabled =
+                false;
+
+
+              boton.textContent =
+                "INGRESAR";
+
+
+              delete window[nombreCallback];
+
+              scriptRegistro.remove();
 
             };
 
 
-
-        /*
-         * ==========================================
-         * CARGAR CONFIGURACIÓN
-         * ==========================================
-         */
-
-        const script =
-            document.createElement("script");
-
-
-        script.src =
-            URL_APPS_SCRIPT +
-            "?prefix=cabinaConfigCallback";
-
-
-        document.head.appendChild(
-            script
-        );
-
-
-
-        /*
-         * ==========================================
-         * ENVIAR REGISTRO
-         * ==========================================
-         */
-
-        document
-            .getElementById("formulario")
-            .addEventListener(
-                "submit",
-                function(event) {
-
-
-                    /*
-                     * EVITAR RECARGA
-                     */
-
-                    event.preventDefault();
-
-
-                    /*
-                     * ELEMENTOS
-                     */
-
-                    const boton =
-                        document.getElementById(
-                            "boton"
-                        );
-
-
-                    const mensaje =
-                        document.getElementById(
-                            "mensaje"
-                        );
-
-
-                    /*
-                     * OBTENER DATOS
-                     */
-
-                    const nombreApellido =
-                        document
-                            .getElementById(
-                                "NOMBRE_APELLIDO"
-                            )
-                            ?.value
-                            .trim() || "";
-
-
-                    const email =
-                        document
-                            .getElementById(
-                                "EMAIL"
-                            )
-                            ?.value
-                            .trim() || "";
-
-
-                    const experienciaSeleccionada =
-                        document.querySelector(
-                            'input[name="experiencia"]:checked'
-                        );
-
-
-                    const experiencia =
-                        experienciaSeleccionada
-                            ? experienciaSeleccionada.value
-                            : "";
-
-
-                    /*
-                     * VALIDACIÓN
-                     */
-
-                    if (
-                        !nombreApellido ||
-                        !email ||
-                        !experiencia
-                    ) {
-
-                        mensaje.textContent =
-                            "Completa todos los campos.";
-
-                        return;
-
-                    }
-
-
-                    /*
-                     * DESHABILITAR BOTÓN
-                     */
-
-                    boton.disabled =
-                        true;
-
-
-                    boton.textContent =
-                        "ENVIANDO...";
-
-
-                    mensaje.textContent =
-                        "";
-
-
-                    /*
-                     * ==================================
-                     * CONSTRUIR URL
-                     * ==================================
-                     */
-
-                    const url =
-                        URL_APPS_SCRIPT +
-                        "?accion=registrar" +
-                        "&nombreApellido=" +
-                        encodeURIComponent(
-                            nombreApellido
-                        ) +
-                        "&email=" +
-                        encodeURIComponent(
-                            email
-                        ) +
-                        "&experiencia=" +
-                        encodeURIComponent(
-                            experiencia
-                        ) +
-                        "&t=" +
-                        Date.now();
-
-
-                    /*
-                     * ==================================
-                     * ENVIAR REGISTRO SIN ESPERAR RESPUESTA
-                     * ==================================
-                     */
-
-                    const envio =
-                        new Image();
-
-
-                    envio.onload =
-                        function() {
-
-                            envio.src =
-                                "";
-
-                        };
-
-
-                    envio.onerror =
-                        function() {
-
-                            envio.src =
-                                "";
-
-                        };
-
-
-                    envio.src =
-                        url;
-
-
-                    /*
-                     * ==================================
-                     * CONFIRMACIÓN VISUAL
-                     *
-                     * No esperamos respuesta de Apps Script.
-                     * El endpoint ya fue comprobado.
-                     * ==================================
-                     */
-
-                    mensaje.textContent =
-                        "Registro realizado correctamente.";
-
-
-                    boton.textContent =
-                        "INGRESADO";
-
-
-                    /*
-                     * LIMPIAR FORMULARIO
-                     */
-
-                    document
-                        .getElementById(
-                            "formulario"
-                        )
-                        .reset();
-
-
-                }
+          const scriptRegistro =
+            document.createElement(
+              "script"
             );
 
 
-    </script>
+          scriptRegistro.src =
+            url +
+            "&prefix=" +
+            encodeURIComponent(
+              nombreCallback
+            );
+
+
+          scriptRegistro.onerror =
+            function() {
+
+
+              console.error(
+                "No se pudo contactar Apps Script."
+              );
+
+
+              mensaje.textContent =
+                "No fue posible conectar con la cabina.";
+
+
+              boton.disabled =
+                false;
+
+
+              boton.textContent =
+                "INGRESAR";
+
+
+              delete window[nombreCallback];
+
+              scriptRegistro.remove();
+
+            };
+
+
+          document.body.appendChild(
+            scriptRegistro
+          );
+
+
+        }
+      );
+
+
+  </script>
 
 
 </body>
