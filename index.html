@@ -210,6 +210,44 @@
 
     /*
      * ==================================
+     * PANTALLA CONFIRMACIÓN
+     * ==================================
+     */
+
+    #pantallaConfirmacion {
+
+      display: none;
+
+      text-align: center;
+
+    }
+
+    #mensajeExito {
+
+      color: #222222;
+
+      font-size: 20px;
+
+      font-weight: bold;
+
+      line-height: 1.5;
+
+    }
+
+    #mensajePasoCabina {
+
+      margin-top: 15px;
+
+      color: #222222;
+
+      font-size: 18px;
+
+      line-height: 1.5;
+
+    }
+
+    /*
+     * ==================================
      * PANTALLA CABINA OCUPADA
      * ==================================
      */
@@ -314,6 +352,23 @@
 
 
     <!-- ==================================
+         CONFIRMACIÓN
+    =================================== -->
+
+    <div id="pantallaConfirmacion">
+
+      <div id="mensajeExito">
+        Datos ingresados correctamente.
+      </div>
+
+      <div id="mensajePasoCabina">
+        Ahora puedes pasar a la cabina.
+      </div>
+
+    </div>
+
+
+    <!-- ==================================
          CABINA OCUPADA
     =================================== -->
 
@@ -352,8 +407,29 @@
     let estadoCabina =
       "DESCONOCIDO";
 
+
     let consultaEstadoEnCurso =
       false;
+
+
+    let confirmacionActiva =
+      false;
+
+
+    let temporizadorConfirmacion =
+      null;
+
+
+    let mensajeExitoConfigurado =
+      "Datos ingresados correctamente.";
+
+
+    let mensajePasoCabinaConfigurado =
+      "Ahora puedes pasar a la cabina.";
+
+
+    let mensajeCabinaOcupadaConfigurado =
+      "Cabina ocupada. Espera un momento.";
 
 
 
@@ -379,6 +455,40 @@
 
         const config =
           datos.configuracion || {};
+
+
+        /*
+         * MENSAJES
+         */
+
+        if (
+          config.MENSAJE_EXITO
+        ) {
+
+          mensajeExitoConfigurado =
+            config.MENSAJE_EXITO;
+
+        }
+
+
+        if (
+          config.MENSAJE_PASO_CABINA
+        ) {
+
+          mensajePasoCabinaConfigurado =
+            config.MENSAJE_PASO_CABINA;
+
+        }
+
+
+        if (
+          config.MENSAJE_CABINA_OCUPADA
+        ) {
+
+          mensajeCabinaOcupadaConfigurado =
+            config.MENSAJE_CABINA_OCUPADA;
+
+        }
 
 
         /*
@@ -435,6 +545,21 @@
 
           document
             .getElementById("titulo")
+            .style.color =
+              config.COLOR_TEXTO;
+
+          document
+            .getElementById("mensajeExito")
+            .style.color =
+              config.COLOR_TEXTO;
+
+          document
+            .getElementById("mensajePasoCabina")
+            .style.color =
+              config.COLOR_TEXTO;
+
+          document
+            .getElementById("mensajeOcupada")
             .style.color =
               config.COLOR_TEXTO;
 
@@ -846,6 +971,7 @@
             nombreCallback
           ];
 
+
           scriptEstado.remove();
 
         };
@@ -885,6 +1011,7 @@
             nombreCallback
           ];
 
+
           scriptEstado.remove();
 
         };
@@ -907,9 +1034,30 @@
     function actualizarPantallaCabina() {
 
 
+      /*
+       * Mientras mostramos la confirmación
+       * no debemos cambiar inmediatamente
+       * a la pantalla OCUPADA.
+       */
+
+      if (
+        confirmacionActiva
+      ) {
+
+        return;
+
+      }
+
+
       const formulario =
         document.getElementById(
           "contenidoFormulario"
+        );
+
+
+      const pantallaConfirmacion =
+        document.getElementById(
+          "pantallaConfirmacion"
         );
 
 
@@ -927,6 +1075,9 @@
         formulario.style.display =
           "none";
 
+        pantallaConfirmacion.style.display =
+          "none";
+
         pantallaOcupada.style.display =
           "block";
 
@@ -934,6 +1085,9 @@
 
         formulario.style.display =
           "block";
+
+        pantallaConfirmacion.style.display =
+          "none";
 
         pantallaOcupada.style.display =
           "none";
@@ -946,7 +1100,114 @@
 
     /*
      * ==========================================
-     * ACTUALIZAR ESTADO PERIÓDICAMENTE
+     * MOSTRAR CONFIRMACIÓN
+     * ==========================================
+     */
+
+    function mostrarConfirmacion() {
+
+
+      const formulario =
+        document.getElementById(
+          "contenidoFormulario"
+        );
+
+
+      const pantallaConfirmacion =
+        document.getElementById(
+          "pantallaConfirmacion"
+        );
+
+
+      const pantallaOcupada =
+        document.getElementById(
+          "pantallaOcupada"
+        );
+
+
+      document
+        .getElementById(
+          "mensajeExito"
+        )
+        .textContent =
+          mensajeExitoConfigurado;
+
+
+      document
+        .getElementById(
+          "mensajePasoCabina"
+        )
+        .textContent =
+          mensajePasoCabinaConfigurado;
+
+
+      document
+        .getElementById(
+          "mensajeOcupada"
+        )
+        .textContent =
+          mensajeCabinaOcupadaConfigurado;
+
+
+      confirmacionActiva =
+        true;
+
+
+      formulario.style.display =
+        "none";
+
+
+      pantallaOcupada.style.display =
+        "none";
+
+
+      pantallaConfirmacion.style.display =
+        "block";
+
+
+      /*
+       * Esperar 5 segundos antes
+       * de pasar a OCUPADA.
+       */
+
+      if (
+        temporizadorConfirmacion
+      ) {
+
+        clearTimeout(
+          temporizadorConfirmacion
+        );
+
+      }
+
+
+      temporizadorConfirmacion =
+        setTimeout(
+          function() {
+
+
+            confirmacionActiva =
+              false;
+
+
+            pantallaConfirmacion.style.display =
+              "none";
+
+
+            actualizarPantallaCabina();
+
+
+          },
+          5000
+        );
+
+    }
+
+
+
+    /*
+     * ==========================================
+     * ACTUALIZAR ESTADO CADA 2 SEGUNDOS
      * ==========================================
      */
 
@@ -1136,12 +1397,13 @@
                   "OCUPADA";
 
 
-                actualizarPantallaCabina();
+                mostrarPantallaOcupadaDirecta();
 
 
                 delete window[
                   nombreCallback
                 ];
+
 
                 scriptRegistro.remove();
 
@@ -1159,32 +1421,29 @@
                 resultado.ok === true
               ) {
 
+                /*
+                 * El servidor ya dejó
+                 * la cabina en OCUPADA.
+                 */
+
                 estadoCabina =
                   "OCUPADA";
 
 
-                mensaje.textContent =
-                  "Datos ingresados correctamente. Ahora puedes pasar a la cabina.";
+                /*
+                 * Mostrar primero la
+                 * confirmación al usuario.
+                 */
 
-
-                boton.textContent =
-                  "INGRESADO";
-
-
-                document
-                  .getElementById(
-                    "formulario"
-                  )
-                  .reset();
+                mostrarConfirmacion();
 
 
                 delete window[
                   nombreCallback
                 ];
 
-                scriptRegistro.remove();
 
-                actualizarPantallaCabina();
+                scriptRegistro.remove();
 
                 return;
 
@@ -1210,6 +1469,7 @@
               delete window[
                 nombreCallback
               ];
+
 
               scriptRegistro.remove();
 
@@ -1255,6 +1515,7 @@
                 nombreCallback
               ];
 
+
               scriptRegistro.remove();
 
             };
@@ -1267,6 +1528,60 @@
 
         }
       );
+
+
+
+    /*
+     * ==========================================
+     * MOSTRAR OCUPADA DIRECTAMENTE
+     * ==========================================
+     */
+
+    function mostrarPantallaOcupadaDirecta() {
+
+
+      const formulario =
+        document.getElementById(
+          "contenidoFormulario"
+        );
+
+
+      const pantallaConfirmacion =
+        document.getElementById(
+          "pantallaConfirmacion"
+        );
+
+
+      const pantallaOcupada =
+        document.getElementById(
+          "pantallaOcupada"
+        );
+
+
+      confirmacionActiva =
+        false;
+
+
+      formulario.style.display =
+        "none";
+
+
+      pantallaConfirmacion.style.display =
+        "none";
+
+
+      document
+        .getElementById(
+          "mensajeOcupada"
+        )
+        .textContent =
+          mensajeCabinaOcupadaConfigurado;
+
+
+      pantallaOcupada.style.display =
+        "block";
+
+    }
 
 
   </script>
