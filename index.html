@@ -208,6 +208,32 @@
 
     }
 
+    /*
+     * ==================================
+     * PANTALLA CABINA OCUPADA
+     * ==================================
+     */
+
+    #pantallaOcupada {
+
+      display: none;
+
+      text-align: center;
+
+    }
+
+    #mensajeOcupada {
+
+      color: #222222;
+
+      font-size: 20px;
+
+      font-weight: bold;
+
+      line-height: 1.4;
+
+    }
+
   </style>
 
 </head>
@@ -227,56 +253,77 @@
     >
 
 
-    <h1 id="titulo">
-      Ingresa a la experiencia
-    </h1>
+    <!-- ==================================
+         FORMULARIO
+    =================================== -->
+
+    <div id="contenidoFormulario">
+
+      <h1 id="titulo">
+        Ingresa a la experiencia
+      </h1>
 
 
-    <form id="formulario">
+      <form id="formulario">
 
 
-      <!-- ==================================
-           CAMPOS DINÁMICOS
-      =================================== -->
+        <!-- ==================================
+             CAMPOS DINÁMICOS
+        =================================== -->
 
-      <div id="camposFormulario"></div>
+        <div id="camposFormulario"></div>
 
 
-      <!-- ==================================
-           EXPERIENCIAS DINÁMICAS
-      =================================== -->
+        <!-- ==================================
+             EXPERIENCIAS DINÁMICAS
+        =================================== -->
 
-      <div class="experiencias">
+        <div class="experiencias">
 
-        <label id="tituloExperiencias">
-          Elige tu experiencia
-        </label>
+          <label id="tituloExperiencias">
+            Elige tu experiencia
+          </label>
 
-        <div id="listaExperiencias"></div>
+          <div id="listaExperiencias"></div>
 
+        </div>
+
+
+        <!-- ==================================
+             BOTÓN
+        =================================== -->
+
+        <button
+          type="submit"
+          id="boton"
+        >
+          INGRESAR
+        </button>
+
+
+        <!-- ==================================
+             MENSAJE
+        ================================== -->
+
+        <div id="mensaje"></div>
+
+
+      </form>
+
+    </div>
+
+
+    <!-- ==================================
+         CABINA OCUPADA
+    =================================== -->
+
+    <div id="pantallaOcupada">
+
+      <div id="mensajeOcupada">
+        Cabina ocupada. Espera un momento.
       </div>
 
-
-      <!-- ==================================
-           BOTÓN
-      =================================== -->
-
-      <button
-        type="submit"
-        id="boton"
-      >
-        INGRESAR
-      </button>
-
-
-      <!-- ==================================
-           MENSAJE
-      =================================== -->
-
-      <div id="mensaje"></div>
-
-
-    </form>
+    </div>
 
 
   </div>
@@ -294,6 +341,19 @@
 
     const URL_APPS_SCRIPT =
       "https://script.google.com/macros/s/AKfycbwPH_9hWI_TaPSRoFdcTT73DStbsNYHl_NDrkxTJk3Xe5EVBVbu_KEVvyD_v3qNoRCT/exec";
+
+
+    /*
+     * ==========================================
+     * VARIABLES
+     * ==========================================
+     */
+
+    let estadoCabina =
+      "DESCONOCIDO";
+
+    let consultaEstadoEnCurso =
+      false;
 
 
 
@@ -689,6 +749,15 @@
           }
         );
 
+
+        /*
+         * ==================================
+         * CONSULTAR ESTADO
+         * ==================================
+         */
+
+        consultarEstadoCabina();
+
       };
 
 
@@ -699,17 +768,191 @@
      * ==========================================
      */
 
-    const script =
+    const scriptConfig =
       document.createElement("script");
 
 
-    script.src =
+    scriptConfig.src =
       URL_APPS_SCRIPT +
-      "?prefix=cabinaConfigCallback";
+      "?prefix=cabinaConfigCallback" +
+      "&t=" +
+      Date.now();
 
 
     document.head.appendChild(
-      script
+      scriptConfig
+    );
+
+
+
+    /*
+     * ==========================================
+     * CONSULTAR ESTADO DE CABINA
+     * ==========================================
+     */
+
+    function consultarEstadoCabina() {
+
+
+      if (
+        consultaEstadoEnCurso
+      ) {
+
+        return;
+
+      }
+
+
+      consultaEstadoEnCurso =
+        true;
+
+
+      const nombreCallback =
+        "respuestaEstado_" +
+        Date.now();
+
+
+      window[nombreCallback] =
+        function(resultado) {
+
+
+          console.log(
+            "ESTADO CABINA:",
+            resultado
+          );
+
+
+          consultaEstadoEnCurso =
+            false;
+
+
+          if (
+            resultado &&
+            resultado.estado
+          ) {
+
+            estadoCabina =
+              String(
+                resultado.estado
+              ).toUpperCase();
+
+          }
+
+
+          actualizarPantallaCabina();
+
+
+          delete window[
+            nombreCallback
+          ];
+
+          scriptEstado.remove();
+
+        };
+
+
+      const scriptEstado =
+        document.createElement(
+          "script"
+        );
+
+
+      scriptEstado.src =
+        URL_APPS_SCRIPT +
+        "?accion=estado" +
+        "&prefix=" +
+        encodeURIComponent(
+          nombreCallback
+        ) +
+        "&t=" +
+        Date.now();
+
+
+      scriptEstado.onerror =
+        function() {
+
+
+          console.error(
+            "No se pudo consultar el estado de la cabina."
+          );
+
+
+          consultaEstadoEnCurso =
+            false;
+
+
+          delete window[
+            nombreCallback
+          ];
+
+          scriptEstado.remove();
+
+        };
+
+
+      document.body.appendChild(
+        scriptEstado
+      );
+
+    }
+
+
+
+    /*
+     * ==========================================
+     * ACTUALIZAR PANTALLA
+     * ==========================================
+     */
+
+    function actualizarPantallaCabina() {
+
+
+      const formulario =
+        document.getElementById(
+          "contenidoFormulario"
+        );
+
+
+      const pantallaOcupada =
+        document.getElementById(
+          "pantallaOcupada"
+        );
+
+
+      if (
+        estadoCabina ===
+        "OCUPADA"
+      ) {
+
+        formulario.style.display =
+          "none";
+
+        pantallaOcupada.style.display =
+          "block";
+
+      } else {
+
+        formulario.style.display =
+          "block";
+
+        pantallaOcupada.style.display =
+          "none";
+
+      }
+
+    }
+
+
+
+    /*
+     * ==========================================
+     * ACTUALIZAR ESTADO PERIÓDICAMENTE
+     * ==========================================
+     */
+
+    setInterval(
+      consultarEstadoCabina,
+      2000
     );
 
 
@@ -732,6 +975,22 @@
            */
 
           event.preventDefault();
+
+
+          /*
+           * SEGURIDAD EXTRA
+           */
+
+          if (
+            estadoCabina ===
+            "OCUPADA"
+          ) {
+
+            actualizarPantallaCabina();
+
+            return;
+
+          }
 
 
           /*
@@ -873,19 +1132,16 @@
                 resultado.ocupada === true
               ) {
 
-                mensaje.textContent =
-                  "Cabina ocupada. Espera un momento.";
+                estadoCabina =
+                  "OCUPADA";
 
 
-                boton.disabled =
-                  false;
+                actualizarPantallaCabina();
 
 
-                boton.textContent =
-                  "INGRESAR";
-
-
-                delete window[nombreCallback];
+                delete window[
+                  nombreCallback
+                ];
 
                 scriptRegistro.remove();
 
@@ -903,6 +1159,10 @@
                 resultado.ok === true
               ) {
 
+                estadoCabina =
+                  "OCUPADA";
+
+
                 mensaje.textContent =
                   "Datos ingresados correctamente. Ahora puedes pasar a la cabina.";
 
@@ -918,9 +1178,13 @@
                   .reset();
 
 
-                delete window[nombreCallback];
+                delete window[
+                  nombreCallback
+                ];
 
                 scriptRegistro.remove();
+
+                actualizarPantallaCabina();
 
                 return;
 
@@ -943,7 +1207,9 @@
                 "INGRESAR";
 
 
-              delete window[nombreCallback];
+              delete window[
+                nombreCallback
+              ];
 
               scriptRegistro.remove();
 
@@ -985,7 +1251,9 @@
                 "INGRESAR";
 
 
-              delete window[nombreCallback];
+              delete window[
+                nombreCallback
+              ];
 
               scriptRegistro.remove();
 
