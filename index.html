@@ -408,6 +408,10 @@
       "DESCONOCIDO";
 
 
+    let estadoCabinaAnterior =
+      "DESCONOCIDO";
+
+
     let consultaEstadoEnCurso =
       false;
 
@@ -956,10 +960,34 @@
             resultado.estado
           ) {
 
-            estadoCabina =
+            const nuevoEstadoCabina =
               String(
                 resultado.estado
               ).toUpperCase();
+
+
+            /*
+             * La experiencia terminó cuando
+             * la cabina pasó de OCUPADA a LIBRE.
+             * En ese momento dejamos WEB1 listo
+             * para la siguiente persona.
+             */
+
+            if (
+              estadoCabinaAnterior === "OCUPADA" &&
+              nuevoEstadoCabina === "LIBRE"
+            ) {
+
+              limpiarFormulario();
+
+            }
+
+
+            estadoCabinaAnterior =
+              nuevoEstadoCabina;
+
+            estadoCabina =
+              nuevoEstadoCabina;
 
           }
 
@@ -1215,6 +1243,87 @@
       consultarEstadoCabina,
       2000
     );
+
+
+
+    /*
+     * ==========================================
+     * LIMPIAR FORMULARIO
+     * ==========================================
+     */
+
+    function limpiarFormulario() {
+
+      const formulario =
+        document.getElementById(
+          "formulario"
+        );
+
+
+      if (formulario) {
+
+        formulario.reset();
+
+      }
+
+
+      /*
+       * Asegurar que ninguna experiencia
+       * quede seleccionada.
+       */
+
+      const experienciasSeleccionadas =
+        document.querySelectorAll(
+          'input[name="experiencia"]:checked'
+        );
+
+
+      experienciasSeleccionadas.forEach(
+        function(input) {
+
+          input.checked = false;
+
+        }
+      );
+
+
+      /*
+       * Limpiar mensajes anteriores.
+       */
+
+      const mensaje =
+        document.getElementById(
+          "mensaje"
+        );
+
+
+      if (mensaje) {
+
+        mensaje.textContent = "";
+
+      }
+
+
+      /*
+       * Dejar el botón listo para
+       * una nueva persona.
+       */
+
+      const boton =
+        document.getElementById(
+          "boton"
+        );
+
+
+      if (boton) {
+
+        boton.disabled = false;
+
+        boton.textContent = "INGRESAR";
+
+      }
+
+    }
 
 
 
